@@ -32,10 +32,21 @@ ROTOR_V: tuple[list[int], int] = (
     ord("Z") - ord("A"),
 )
 
+
+# Reflector A
+# Input:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
+# Output:  EJMZALYXVBWFCRQUONTSPIKHGD
+REFLECTOR_A: list[int] = [ord(c) - ord("A") for c in "EJMZALYXVBWFCRQUONTSPIKHGD"]
+
 # Reflector B
 # Input:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
 # Output:  YRUHQSLDPXNGOKMIEBFZCWVJAT
 REFLECTOR_B: list[int] = [ord(c) - ord("A") for c in "YRUHQSLDPXNGOKMIEBFZCWVJAT"]
+
+# Reflector C
+# Input:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
+# Output:  FVPJIAOYEDRZXWGCTKUQSBNMHL
+REFLECTOR_B: list[int] = [ord(c) - ord("A") for c in "FVPJIAOYEDRZXWGCTKUQSBNMHL"]
 
 
 def create_enigma_machine_I(plugboard_pairs: str = "") -> EnigmaMachine:
@@ -53,7 +64,8 @@ def create_enigma_machine_I(plugboard_pairs: str = "") -> EnigmaMachine:
 
 if __name__ == "__main__":
     while True:
-        print("""                                                           
+        print(
+            """                                                           
                                  @@@@@@@@@@@@@@@@@                              
                         .@@@@@@                      @@@@@                      
                   .=@@@-                                    @@@@                
@@ -74,7 +86,8 @@ if __name__ == "__main__":
                                @@@@@@@@@@@@@@@@@@@@@@       
 
                 === Bem-vindo ao Simulador de Enigma Machine! 🕵️ ===                                                                               
-    """)
+    """
+        )
 
         # Configuração do plugboard
         print(
