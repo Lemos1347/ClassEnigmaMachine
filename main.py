@@ -46,7 +46,7 @@ REFLECTOR_B: list[int] = [ord(c) - ord("A") for c in "YRUHQSLDPXNGOKMIEBFZCWVJAT
 # Reflector C
 # Input:   ABCDEFGHIJKLMNOPQRSTUVWXYZ
 # Output:  FVPJIAOYEDRZXWGCTKUQSBNMHL
-REFLECTOR_B: list[int] = [ord(c) - ord("A") for c in "FVPJIAOYEDRZXWGCTKUQSBNMHL"]
+REFLECTOR_C: list[int] = [ord(c) - ord("A") for c in "FVPJIAOYEDRZXWGCTKUQSBNMHL"]
 
 
 def create_enigma_machine_I(plugboard_pairs: str = "") -> EnigmaMachine:
