@@ -16,35 +16,35 @@ class EnigmaMachine:
         self.plugboard = Plugboard(plugboard_pairs)
 
     def set_positions(self, positions: str):
-        """Defina as posições iniciais de todos os rotores."""
+        """Define as posições iniciais de todos os rotores."""
         for rotor, pos in zip(self.rotors, positions):
             rotor.position = ord(pos.upper()) - ord("A")
 
     def set_ring_settings(self, settings: str):
-        """Defina as configurações dos anéis para todos os rotores."""
+        """Define as configurações dos anéis para todos os rotores."""
         for rotor, setting in zip(self.rotors, settings):
             rotor.ring_setting = ord(setting.upper()) - ord("A")
 
     def _rotate_rotors(self):
-        """Gerencie a rotação dos rotores, incluindo o mecanismo de duplo avanço."""
-        # Check if middle rotor is at notch position
+        """Gerencia a rotação dos rotores, incluindo o mecanismo de duplo avanço."""
+        # Verifica se o rotor do meio está na posição de entalhe
         if len(self.rotors) >= 2 and self.rotors[1].position == self.rotors[1].notch:
-            # Middle and left rotors both step
+            # Os rotores do meio e da esquerda giram
             self.rotors[1].rotate()
             self.rotors[0].rotate()
-        # Check if right rotor is at notch position
+        # Verifica se o rotor da direita está na posição de entalhe
         elif (
             len(self.rotors) >= 2 and self.rotors[-1].position == self.rotors[-1].notch
         ):
-            # Middle rotor steps
+            # O rotor do meio gira
             self.rotors[1].rotate()
 
-        # Right rotor always rotates
+        # O rotor da direita sempre gira
         self.rotors[-1].rotate()
 
     def encode_char(self, char: str) -> str:
         """
-        Codifique um único caractere através da Enigma Machine.
+        Codifica um único caractere através da Máquina Enigma.
         O caminho do sinal é:
         1. Através do plugboard (se houver conexões configuradas)
         2. Através dos rotores da direita para a esquerda
@@ -55,35 +55,35 @@ class EnigmaMachine:
         if not char.isalpha():
             return char
 
-        # Convert to uppercase for consistency
+        # Converte para maiúscula para consistência
         char = char.upper()
 
-        # First pass through the plugboard
+        # Primeira passagem pelo plugboard
         char = self.plugboard.forward(char)
 
-        # Convert character to position (0-25)
+        # Converte o caractere para posição (0-25)
         char_pos = ord(char) - ord("A")
 
-        # Rotate rotors before encoding
+        # Gira os rotores antes da codificação
         self._rotate_rotors()
 
-        # Forward pass through rotors (right to left)
+        # Passagem direta pelos rotores (da direita para a esquerda)
         for rotor in reversed(self.rotors):
             char_pos = rotor.forward(char_pos)
 
-        # Through the reflector
+        # Através do refletor
         char_pos = self.reflector.reflect(char_pos)
 
-        # Backward pass through rotors (left to right)
+        # Passagem inversa pelos rotores (da esquerda para a direita)
         for rotor in self.rotors:
             char_pos = rotor.backward(char_pos)
 
-        # Convert position back to character
+        # Converte a posição de volta para caractere
         char = chr(char_pos + ord("A"))
 
-        # Second pass through the plugboard
+        # Segunda passagem pelo plugboard
         return self.plugboard.forward(char)
 
     def encode(self, text: str) -> str:
-        """Codifique uma string através da Enigma Machine"""
+        """Codifica uma string através da Máquina Enigma"""
         return "".join(self.encode_char(c) for c in text)

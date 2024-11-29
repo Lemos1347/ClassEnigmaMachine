@@ -13,10 +13,10 @@ class Plugboard:
 
         """
         self.mapping: dict[str, str] = {}
-        # Remove any whitespace and convert to uppercase
+        # Remove qualquer espaço em branco e converte para maiúsculas
         pairs = "".join(pairs.upper().split())
 
-        # Create bidirectional mapping for each pair
+        # Cria mapeamento bidirecional para cada par
         for i in range(0, len(pairs), 2):
             if i + 1 < len(pairs):
                 a, b = pairs[i], pairs[i + 1]
